@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+sudo "$(dirname $0)/../share/installall.sh"

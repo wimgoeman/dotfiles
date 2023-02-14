@@ -1,0 +1,45 @@
+{
+    "$schema": "https://lnav.org/schemas/format-v1.schema.json",
+    "splunk": {
+        "title": "Splunk",
+        "json": true,
+        "description": "Logs exported as json from splunk",
+        "hide-extra": true,
+        "line-format": [
+            {"field": "result/_time"}, " ",
+            {"field": "result/severity"}, " ",
+            "[", {"field": "result/logger", "min-width": 40, "max-width": 40, "overflow": "abbrev" }, "] ",
+            {"field": "result/message"}        
+        ],
+        "timestamp-field": "result/_time",
+        "level-field": "result/severity",
+        "value": {
+	    "result/properties.session-id": {
+	        "kind": "string",
+		"identifier": true,
+		"hidden": true
+	    },
+            "result/logger" : {
+                "kind": "string",
+		"identifier": true,
+                "hidden": true
+            },
+            "result/thread" : {
+                "kind": "string",
+                "hidden": true
+            },
+            "result/severity" : {
+                "kind": "string",
+                "hidden": true
+            },
+            "result/message" : {
+                "kind": "string",
+                "hidden": true
+            },
+            "result/_time" : {
+                "kind": "string",
+                "hidden": true
+            }
+        }
+    }
+}

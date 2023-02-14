@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+value=$(find ~/.password-store/ | grep ".gpg" | sed 's@/home/wgoeman/.password-store/@@g' | sed 's@.gpg@@g' | rofi -dmenu) 
+[[ -n $value ]] || exit
+
+password=$(pass show "$value" | head -n1)
+xdotool type "$password"
+xdotool key Return
+

@@ -1,0 +1,41 @@
+{
+    "$schema": "https://lnav.org/schemas/format-v1.schema.json",
+    "agm_log": {
+        "title": "AGM log format",
+        "description": "Log format used by agm and output by most java programs",
+        "url": "",
+        "regex": {
+            "agm": {
+                "pattern": "^(?<timestamp>\\d{2}:\\d{2}:\\d{2},\\d{3})\\s+(?<level>ERROR|WARN|INFO|DEBUG)\\s+\\[(?<class>[\\w.]+)\\]\\s+\\((?<thread>[\\w\\-\\.]+)\\)\\s+(?<body>.*)$"
+            }
+        },
+        "level-field": "level",
+        "level": {
+            "error": "ERROR",
+            "warning": "WARN",
+            "debug": "DEBUG",
+            "info": "INFO"
+        },
+        "value": {
+            "thread": {
+                "kind": "string",
+                "identifier": true
+            },
+            "level": {
+                "kind": "string"
+            },
+            "class": {
+                "kind": "string",
+                "identifier": true
+            },
+            "body": {
+                "kind": "string"
+            }
+        },
+        "sample": [
+            {
+                "line": "15:49:11,860 INFO  [c.a.c.AppInitializer] (main) Validating database connection"
+            }
+        ]
+    }
+}
