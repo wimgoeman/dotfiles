@@ -58,7 +58,8 @@ apt install \
     rofi \
     golang \
     xdotool \
-    ripgrep
+    ripgrep \
+    flameshot
 
 if [ -z "$GOPROXY" ]
 then
