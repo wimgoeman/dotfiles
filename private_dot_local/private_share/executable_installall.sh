@@ -78,6 +78,8 @@ apt install \
     flameshot \
     nitrogen
 
+snap install lnav
+
 if [ -z "$GOPROXY" ]
 then
     echo -e "\e[33m\$GOPROXY is not set! Consider set it up for custom repository access.\e[0m"
@@ -105,3 +107,4 @@ else
 fi
 
 echo -e "\e[32mDone!\e[0m" 
+
