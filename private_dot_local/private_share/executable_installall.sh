@@ -76,7 +76,8 @@ apt install \
     xdotool \
     ripgrep \
     flameshot \
-    nitrogen
+    nitrogen \
+    playerctl
 
 snap install lnav
 
