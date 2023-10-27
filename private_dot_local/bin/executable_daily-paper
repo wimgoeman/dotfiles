@@ -1,0 +1,42 @@
+#!/bin/env bash
+
+# This script downloads the Bing image of the day, to update the betterlockscreen cache with it, and set it as wellpaper.
+
+DP_DIR=/tmp/daily-paper/
+mkdir -p $DP_DIR 
+DP_LOG=$DP_DIR/daily-paper.log
+
+DP_DATE=$(date +%Y-%m-%d)
+DP_IMG_FILE=${DP_DATE}.jpg
+
+echo "---" >> $DP_LOG
+echo "> Running daily-paper $(date)" >> $DP_LOG
+
+# Download the image of the day, if it does not exist yet
+if [[ ! -f $DP_DIR$DP_IMG_FILE ]]; then
+    echo "> Downloading new daily image" >> $DP_LOG
+    DP_BING_JSON=$(curl -s "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=nl-BE")
+    DP_IMG_URL="https://www.bing.com/$(echo $DP_BING_JSON | jq -r '.images[0].url')"
+
+    curl -o "$DP_DIR$DP_IMG_FILE" "$DP_IMG_URL" >> $DP_LOG 2>&1
+
+    if [[ ! -f $DP_DIR$DP_IMG_FILE ]]; then
+        echo "> Error downloading image ($DP_DIR$DP_IMG_FILE)" >> $DP_LOG
+        exit 1
+    else 
+        echo "> Downloaded image ($DP_DIR$DP_IMG_FILE)" >> $DP_LOG
+    fi
+fi
+
+if [[ -f $DP_DIR$DP_IMG_FILE ]]; then
+    echo "> Updating lockscreen cache with ($DP_DIR$DP_IMG_FILE)" >> $DP_LOG
+
+    # Update lockscreen cache with new image
+    betterlockscreen -u "$DP_DIR$DP_IMG_FILE" --fx blur  >> $DP_LOG 2>&1
+
+    echo "> Setting wallpaper" >> $DP_LOG
+
+    # Update wallpapers with new image
+    betterlockscreen -w  >> $DP_LOG 2>&1
+fi
+echo "> Done!" >> $DP_LOG
