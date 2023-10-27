@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+sleep 1
+$HOME/.config/polybar/launch.sh
+# picom -b
+# nitrogen --set-scaled ~/.local/share/backgrounds/ultrawide_borealis.jpg
+
+# Setup wallpaper & lockscreen
+daily-paper

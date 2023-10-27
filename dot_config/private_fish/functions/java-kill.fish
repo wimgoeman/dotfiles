@@ -5,7 +5,7 @@ function java-kill
    jcmd | grep -E $argv[1] > $JK_TMP_FILE
    set JK_LINES (cat $JK_TMP_FILE | wc -l)
    if [ $JK_LINES -eq 0 ] 
-     echo "No mathing process not found"
+     echo "No matching process not found"
    else if [ $JK_LINES -gt 1 ] 
      echo "More than 1 matching process found. Kill it manually."
      cat $JK_TMP_FILE

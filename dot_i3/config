@@ -1,6 +1,33 @@
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+# Define catppuccin macchiato colors
+set $rosewater #f4dbd6
+set $flamingo  #f0c6c6
+set $pink      #f5bde6
+set $mauve     #c6a0f6
+set $red       #ed8796
+set $maroon    #ee99a0
+set $peach     #f5a97f
+set $green     #a6da95
+set $teal      #8bd5ca
+set $sky       #91d7e3
+set $sapphire  #7dc4e4
+set $blue      #8aadf4
+set $lavender  #b7bdf8
+set $text      #cad3f5
+set $subtext1  #b8c0e0
+set $subtext0  #a5adcb
+set $overlay2  #939ab7
+set $overlay1  #8087a2
+set $overlay0  #6e738d
+set $surface2  #5b6078
+set $surface1  #494d64
+set $surface0  #363a4f
+set $base      #24273a
+set $mantle    #1e2030
+set $crust     #181926
+
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
@@ -8,16 +35,16 @@ set $mod Mod4
 # workspace_layout tabbed <stacking|tabbed>
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border pixel 1
+default_border pixel 2
 default_floating_border normal
 
 # Hide borders
 hide_edge_borders none
 
 # change borders
-bindsym $mod+u border none
-bindsym $mod+y border pixel 1
-bindsym $mod+n border normal
+#bindsym $mod+u border none
+#bindsym $mod+y border pixel 1
+#bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -36,10 +63,11 @@ bindsym $mod+Shift+q kill
 
 # start program launcher
 # bindsym $mod+d exec --no-startup-id dmenu_recency
-bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun
+bindsym $mod+d exec rofi -modi drun -show drun
+bindsym $mod+Shift+d exec rofi -modi run -show run
 
 # emoji picker
-bindsym $mod+period exec --no-startup-id rofimoji --rofi-args='-font "FiraCode Nerd Font 12"'
+bindsym $mod+period exec --no-startup-id rofimoji --action type copy
 
 # launch pass integration
 bindsym $mod+shift+p exec rofi-pass
@@ -51,24 +79,20 @@ bindsym XF86AudioMute exec --no-startup-id pactl -- set-sink-mute @DEFAULT_SINK@
 bindsym $mod+Ctrl+m exec pavucontrol
 
 # Media keys
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioPause exec playerctl pause-pause
-bindsym XF86AudioNext exec playerctl next 
-bindsym XF86AudioPrev exec playerctl previous
-
-
-
-################################################################################################
+bindsym XF86AudioPlay exec myplayerctl play-pause
+bindsym XF86AudioPause exec myplayerctl pause-pause
+bindsym XF86AudioNext exec myplayerctl next 
+bindsym XF86AudioPrev exec myplayerctl previous
 
 # Screen brightness controls
 # bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
+# Re-arrange screens
+bindsym $mod+p exec --no-startup-id autorandr -c --default common --force
+
 # Start Applications
 bindsym $mod+e exec thunar
-bindsym $mod+F5 exec terminal -e 'mocp'
-bindsym $mod+t exec --no-startup-id pkill picom
-bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 bindsym Print --release exec "flameshot gui"
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
@@ -189,39 +213,39 @@ for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
 for_window [title="File Transfer*"] floating enable
 for_window [class="fpakman"] floating enable
-for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="gnome-calculator"] floating enable border pixel 1
 for_window [class="GParted"] floating enable border normal
 for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [class="Lightdm-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Manjaro-hello"] floating enable
-for_window [class="Manjaro Settings Manager"] floating enable border normal
 for_window [title="MuseScore: Play Panel"] floating enable
 for_window [class="Nitrogen"] floating enable sticky enable border normal
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="octopi"] floating enable
 for_window [title="About Pale Moon"] floating enable
-for_window [class="Pamac-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="Simple-scan"] floating enable border normal
 for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [class="Skype"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
-
-# Added manually 
 for_window [title="Microsoft Teams Notification" class="microsoft teams - preview"] floating enable
 for_window [title="Microsoft Teams Notification" class="Microsoft Teams - Preview"] floating enable
 for_window [class="jetbrains-toolbox"] floating enable
+for_window [class="blueman-manager"] floating enable border normal
 
+# Scratchpad logseq
+for_window [class="Logseq"] floating enable
+for_window [class="Logseq"] move scratchpad
+bindsym $mod+n [class="Logseq"] scratchpad show; [class="logseq"] move position center
+#bindsym $mod+Shift+n [class="Logseq"] scratchpad move;
 
 # Set default workspaces for applications
 assign [title="^Spotify"] $ws7
-assign [title="^Outlook"] $ws8
+assign [title="^Outlook"] $ws4
 assign [class="microsoft teams - preview"] $ws8
+assign [title="^Microsoft Teams"] $ws8
 assign [title="^Windows Desktop"] $ws9
 
 # switch to workspace with urgent window automatically
@@ -278,17 +302,16 @@ mode "resize" {
 }
 
 # Lock screen
-bindsym $mod+l exec --no-startup-id i3lock -c '#222d31' 
+bindsym $mod+l exec --no-startup-id betterlockscreen -l blur
 
 # Autostart applications
-exec --no-startup-id nitrogen --restore; sleep 1; picom -b
+exec --no-startup-id exec autorandr -c --default common --force
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id logseq
 
 # Autostart custom applications
-exec --no-startup-id kitty
-exec --no-startup-id teams
+exec kitty
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -328,9 +351,9 @@ bindsym $mod+m move workspace to output left
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
-  client.focused          #556064 #556064 #80FFF9 #FDF6E3
-  client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
-  client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
+  client.focused          $mauve  #556064 #80FFF9 #FDF6E3
+  client.focused_inactive $base   #2F3D44 #1ABC9C #454948
+  client.unfocused        $base   #2F3D44 #1ABC9C #454948
   client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
   client.placeholder      #000000 #0c0c0c #ffffff #000000 
 
@@ -354,7 +377,7 @@ gaps inner 10
 
 # Smart borders (draw borders around container only if it is not the only container on this workspace) 
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-smart_borders on
+# smart_borders on
 
 # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
 set $mode_gaps Gaps: (o) outer, (i) inner

@@ -81,6 +81,34 @@ apt install \
 
 snap install lnav
 
+# Remove i3lock, because I use i3lock-color
+apt remove i3lock
+
+# Install i3lock-color
+if [ -f /home/.local/bin/i3lock ]
+then
+    echo -e "\e[32mi3lock-color already installed\e[0m"
+else
+    echo -e "\e[35mInstalling i3lock-color\e[0m"
+    mkdir -p /home/.local/bin
+    curl -L -s https://github.com/Raymo111/i3lock-color/releases/download/2.13.c.5/i3lock -o /home/.local/bin/i3lock
+    chmod +x /home/.local/bin/i3lock
+    chown "$SUDO_USER" /home/.local/bin/i3lock
+fi
+
+# Install betterlockscreen
+if [ -f /home/.local/bin/betterlockscreen ]
+then
+    echo -e "\e[32mbetterlockscreen already installed\e[0m"
+else
+    echo -e "\e[35mInstalling betterlockscreen\e[0m"
+    mkdir -p /home/.local/bin
+    curl -L -s https://github.com/betterlockscreen/betterlockscreen/raw/v4.2.0/betterlockscreen -o /home/.local/bin/betterlockscreen
+    chmod +x /home/.local/bin/betterlockscreen
+    chown "$SUDO_USER" /home/.local/bin/betterlockscreen
+fi
+
+
 if [ -z "$GOPROXY" ]
 then
     echo -e "\e[33m\$GOPROXY is not set! Consider set it up for custom repository access.\e[0m"
